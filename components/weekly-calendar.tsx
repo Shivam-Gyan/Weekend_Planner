@@ -21,9 +21,25 @@ export function WeeklyCalendar({ currentDate, activities, onRemoveActivity, onEd
 
   const weekendDates = weekDates.filter((date) => isWeekend(date))
 
-  const getActivitiesForDateAndTime = (date: Date, time: string) => {
+
+  // Helper to get the time (in minutes) from a slot string like "06:00"
+  const parseTime = (time: string) => {
+    const [hours, minutes] = time.split(":").map(Number)
+    return hours * 60 + minutes
+  }
+
+  // For a given date and slot, find the activity that covers this slot (if any)
+  const getActivityForSlot = (date: Date, slot: string) => {
     const dateStr = date.toISOString().split("T")[0]
-    return activities.find((activity) => activity.date === dateStr && activity.time === time)
+    const slotStart = parseTime(slot)
+    const slotEnd = slotStart + 120 // 2 hour slot
+    return activities.find((activity) => {
+      if (activity.date !== dateStr) return false
+      const activityStart = parseTime(activity.time)
+      const activityEnd = activityStart + (activity.duration || 120)
+      // Show activity in all slots it covers
+      return activityStart < slotEnd && activityEnd > slotStart
+    })
   }
 
   return (
@@ -56,7 +72,7 @@ export function WeeklyCalendar({ currentDate, activities, onRemoveActivity, onEd
                   <ScrollArea className="h-[600px]">
                     <div className="px-4 pb-4">
                       {timeSlots.map((time, timeIndex) => {
-                        const activity = getActivitiesForDateAndTime(date, time)
+                        const activity = getActivityForSlot(date, time)
                         return (
                           <motion.div
                             key={`${dateStr}-${time}`}

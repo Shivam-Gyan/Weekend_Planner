@@ -37,9 +37,13 @@ export function ActivityBrowser({
         activity.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()))
 
       const matchesCategory = selectedCategory === "All" || activity.category === selectedCategory
-      const matchesVibe = activity.vibe.includes(selectedVibe)
 
-      return matchesSearch && matchesCategory && matchesVibe
+      // temporary remove vibe filtering
+      // const matchesVibe = activity.vibe.includes(selectedVibe)
+      // return matchesSearch && matchesCategory && matchesVibe
+
+      
+      return matchesSearch && matchesCategory
     })
   }, [searchQuery, selectedCategory, selectedVibe])
 
