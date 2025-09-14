@@ -1,103 +1,196 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { Button } from "@/components/ui/button";
+import { Calendar, Clock, MapPin, Users } from "lucide-react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+
+export default function LandingPage() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="relative min-h-screen overflow-hidden bg-background">
+      {/* Background Video */}
+      <video
+        className="fixed top-0 left-0 w-full h-[calc(100vh-100px)] object-cover z-0 opacity-80"
+        autoPlay
+        loop
+        muted
+        playsInline
+        src="/backgroundvideo.mp4" // replace with your video path
+      />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      {/* Header */}
+      <header className="relative z-10 container max-w-4xl bg-white/30 backdrop-blur-xl rounded-full mx-auto px-8 py-3 mt-4">
+        <motion.div
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          className="flex items-center justify-between"
+        >
+          <div className="flex items-center space-x-2">
+            <Calendar className="h-8 w-8 text-primary" />
+            <h1 className="text-2xl font-bold text-foreground">Weekendly</h1>
+          </div>
+         <nav className="hidden md:flex items-center space-x-4">
+  <a href="#features" className="px-4 py-2 bg-white text-green-800 font-medium rounded-full shadow-sm hover:shadow-md hover:bg-green-50 transition-all duration-300 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-green-300">
+    Features
+  </a>
+  <a href="#how-it-works" className="px-4 py-2 bg-white text-green-800 font-medium rounded-full shadow-sm hover:shadow-md hover:bg-green-50 transition-all duration-300 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-green-300">
+    How it Works
+  </a>
+</nav>
+
+        </motion.div>
+      </header>
+
+      {/* Hero Section */}
+      <main className="relative z-10 container mx-auto px-4 py-16">
+        <motion.div
+          className="text-center max-w-4xl mx-auto"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.3 } },
+          }}
+        >
+          <motion.h2
+            className="text-5xl md:text-6xl font-bold text-balance mb-6"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            Planned Nothing for <span className="text-white">Weekends</span>?
+          </motion.h2>
+          <motion.p
+            className="text-xl text-foreground text-balance mb-8  max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Read our docs
-          </a>
-        </div>
+            Transform your weekends from boring to brilliant. Plan activities, set schedules, and make every Saturday
+            and Sunday count.
+          </motion.p>
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            <Link href="/planner">
+              <Button
+                size="lg"
+                className="text-lg px-8 py-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+              >
+                Start Planning Now
+              </Button>
+            </Link>
+          </motion.div>
+        </motion.div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+
+      {/* Features Section */}
+      <section
+        id="features"
+        className="mt-24 relative z-10 bg-white rounded-t-5xl shadow-xl p-8 md:p-16"
+      >
+        <motion.h3
+          className="text-3xl font-bold text-center mb-12"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          Why Choose Weekendly?
+        </motion.h3>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {[
+            { icon: Calendar, title: "Easy Planning", desc: "Drag and drop activities into your weekend schedule with our intuitive interface." },
+            { icon: Clock, title: "Time Management", desc: "Organize your activities by time slots to make the most of your weekend hours." },
+            { icon: MapPin, title: "Location Aware", desc: "Add locations to your activities and never forget where you need to be." },
+            { icon: Users, title: "Weekend Vibes", desc: "Choose from different themes like Relaxed, Adventurous, or Family time." },
+          ].map((feature, idx) => (
+            <motion.div
+              key={idx}
+              className="text-center p-6 rounded-xl bg-card border border-border hover:shadow-lg transition-shadow"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: idx * 0.2 }}
+            >
+              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <feature.icon className="h-6 w-6 text-primary" />
+              </div>
+              <h4 className="font-semibold mb-2">{feature.title}</h4>
+              <p className="text-sm text-muted-foreground">{feature.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section
+        id="how-it-works"
+        className="relative z-10 bg-white shadow-xl p-8 md:p-16"
+      >
+        <motion.h3
+          className="text-3xl font-bold text-center mb-12"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
         >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          How It Works
+        </motion.h3>
+        <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          {[ 
+            { number: 1, title: "Browse Activities", desc: "Explore our curated list of weekend activities or create your own custom ones." },
+            { number: 2, title: "Drag & Schedule", desc: "Simply drag activities to your preferred time slots on Saturday or Sunday." },
+            { number: 3, title: "Enjoy Your Weekend", desc: "Follow your personalized schedule and make the most of your weekend time." },
+          ].map((step, idx) => (
+            <motion.div
+              key={idx}
+              className="text-center"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: idx * 0.2 }}
+            >
+              <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4 text-primary-foreground font-bold text-xl">
+                {step.number}
+              </div>
+              <h4 className="font-semibold mb-2">{step.title}</h4>
+              <p className="text-sm text-muted-foreground">{step.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="text-center relative z-10 bg-white shadow-xl p-8 md:p-16">
+        <motion.div
+          className="bg-primary/5 rounded-2xl p-12 border border-primary/20"
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
         >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          <h3 className="text-3xl font-bold mb-4">Ready to Transform Your Weekends?</h3>
+          <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Join thousands of users who have already discovered the joy of well-planned weekends.
+          </p>
+          <Link href="/planner">
+            <Button size="lg" className="text-lg px-8 py-6 rounded-xl">
+              Get Started for Free
+            </Button>
+          </Link>
+        </motion.div>
+      </section>
+
+      {/* Footer */}
+      {/* <footer className="relative z-10 container mx-auto px-4 py-8 mt-16 border-t border-border bg-white rounded-t-3xl shadow-xl">
+        <div className="text-center text-muted-foreground">
+          <p>&copy; 2025 Weekendly. Made with ❤️ for better weekends.</p>
+        </div>
+      </footer> */}
     </div>
   );
 }
