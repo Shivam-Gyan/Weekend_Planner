@@ -25,7 +25,7 @@ export function TimeSlot({ time, date, activity, onRemoveActivity, onEditActivit
     },
   })
 
-  // 🎨 vibe + category colors
+  // vibe + category colors
   const vibeColors: Record<string, string> = {
     balanced: "bg-indigo-100/80 border-indigo-200 text-indigo-600",
     adventurous: "bg-amber-100/80 border-amber-200 text-amber-600",

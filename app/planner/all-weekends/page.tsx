@@ -26,7 +26,8 @@ import { WeekendCard } from "@/components/weekend-card"
 import { PlannerNavbar } from "@/components/planner-navbar"
 import { ActivityCard } from "@/components/activity-card"
 import { CreateActivityModal } from "@/components/create-activity-modal"
-import { toast } from "sonner"
+// import { toast } from "sonner"
+import { toast } from "react-hot-toast"
 import { useWeekendPlanner } from "@/lib/hooks/use-weekend-planner"
 import { WeeklyCalendar } from "@/components/weekly-calendar"
 
@@ -92,7 +93,7 @@ export default function AllWeekendsPage() {
         const activity = activityData.activity as Activity
         const { date, time } = dropData
 
-        const success = addActivity(activity, date, time)
+        const success = addActivity(activity, date, time, selectedVibe)
         if (success) {
           toast.success(`${activity.title} added to your schedule!`)
         } else {
