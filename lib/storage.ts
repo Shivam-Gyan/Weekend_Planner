@@ -74,7 +74,7 @@ export function saveWeekendPlan(plan: WeekendPlan): void {
 
 export function getWeekendPlan(weekStart: string): WeekendPlan | null {
   const plans = getWeekendPlans()
-  console.log("getWeekendPlan for weekStart", weekStart, "found plans:", plans)
+  // console.log("getWeekendPlan for weekStart", weekStart, "found plans:", plans)
   return plans.find((p) => p.weekStart === weekStart) || null
 }
 

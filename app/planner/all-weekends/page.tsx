@@ -119,7 +119,7 @@ export default function AllWeekendsPage() {
   //   [allPlans]
   // )
 
-
+  // modified version of above function to use saturday-key string
   const getPlanForWeekend = useCallback(
     (weekend: Date[]) => {
       const weekStart = getWeekendWeekStartString(weekend[0]) // returns the Saturday string
@@ -179,13 +179,13 @@ export default function AllWeekendsPage() {
                     <div className="flex justify-between items-center mb-4">
                       <button
                         onClick={handleBackToOverview}
-                        className="px-4 py-2 rounded-lg bg-gray-100 text-slate-700 hover:bg-gray-300 transition"
+                        className="px-4 py-2 rounded-lg bg-gray-100 border-2 border-green-300 text-slate-700 hover:bg-gray-300 transition"
                       >
                         ← Back to All Weekends
                       </button>
 
                       {weekendPlan && (
-                        <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium">
+                        <span className="px-4 py-2 rounded-full bg-primary/10 text-green-800 text-sm font-medium">
                           {weekendPlan.activities.length} activities
                         </span>
                       )}
@@ -224,7 +224,7 @@ export default function AllWeekendsPage() {
                           const weekendKey = weekend.map((d) => d.toISOString()).join("-")
                           const plan = getPlanForWeekend(weekend)
 
-                          console.log("Rendering weekend", weekendKey, "with plan", plan)
+                          // console.log("Rendering weekend", weekendKey, "with plan", plan)
 
                           return (
                             <motion.div

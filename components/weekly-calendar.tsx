@@ -17,9 +17,11 @@ export function WeeklyCalendar({ currentDate, activities, onRemoveActivity, onEd
   const weekDates = getWeekDates(currentDate)
   const timeSlots = getTimeSlots()
 
-  console.log("Rendering WeeklyCalendar for week of")
+  // console.log("Rendering WeeklyCalendar for week of",weekDates)
 
   const weekendDates = weekDates.filter((date) => isWeekend(date))
+
+  // console.log("Rendering WeeklyCalendar for weekend dates:", weekendDates)
 
 
   // Helper to get the time (in minutes) from a slot string like "06:00"
@@ -30,17 +32,19 @@ export function WeeklyCalendar({ currentDate, activities, onRemoveActivity, onEd
 
   // For a given date and slot, find the activity that covers this slot (if any)
   const getActivityForSlot = (date: Date, slot: string) => {
-    const dateStr = date.toISOString().split("T")[0]
-    const slotStart = parseTime(slot)
-    const slotEnd = slotStart + 120 // 2 hour slot
+    // Use local YYYY-MM-DD for both sides
+    const dateStr = date.toLocaleDateString("en-CA"); // 'YYYY-MM-DD' in local time
+    const slotStart = parseTime(slot);
+    const slotEnd = slotStart + 120; // 2 hour slot
     return activities.find((activity) => {
-      if (activity.date !== dateStr) return false
-      const activityStart = parseTime(activity.time)
-      const activityEnd = activityStart + (activity.duration || 120)
+      // Compare using local date string
+      if (activity.date !== dateStr) return false;
+      const activityStart = parseTime(activity.time);
+      const activityEnd = activityStart + (activity.duration || 120);
       // Show activity in all slots it covers
-      return activityStart < slotEnd && activityEnd > slotStart
-    })
-  }
+      return activityStart < slotEnd && activityEnd > slotStart;
+    });
+  };
 
   return (
     <motion.div
@@ -51,8 +55,11 @@ export function WeeklyCalendar({ currentDate, activities, onRemoveActivity, onEd
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {weekendDates.map((date, index) => {
-          const dateStr = date.toISOString().split("T")[0]
-          const dayName = date.toLocaleDateString("en-US", { weekday: "long" })
+          const dateStr = date.toLocaleDateString("en-CA"); // "YYYY-MM-DD" in local time
+          const dayName = date.toLocaleDateString("en-US", { weekday: "long" });
+
+
+          // console.log("Rendering day:", dateStr, dayName)
 
           return (
             <motion.div
@@ -65,7 +72,7 @@ export function WeeklyCalendar({ currentDate, activities, onRemoveActivity, onEd
                 <CardHeader className="pb-3">
                   <CardTitle className="text-lg flex items-center justify-between">
                     <span>{dayName}</span>
-                    <span className="text-sm font-normal text-muted-foreground">{formatDateShort(date)}</span>
+                    <span className="text-sm font-normal text-muted-foreground">{dateStr}</span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="flex-1 p-0">

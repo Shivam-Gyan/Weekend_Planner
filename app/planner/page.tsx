@@ -65,8 +65,10 @@ export default function PlannerPage() {
     if (activityData?.type === "activity" && dropData?.type === "timeslot") {
       const activity = activityData.activity as Activity
       const { date, time } = dropData
+      console.log("Dropping activity", activity, "on", date, time)
 
       const success = addActivity(activity, date, time)
+      // const success = addActivity(activity, date, time,selectedVibe)
       if (success) {
         toast.success(`${activity.title} added to your schedule!`)
       } else {

@@ -51,6 +51,7 @@ export function useWeekendPlanner(date: Date) {
   // Adds activity to the plan for this hook's weekStartKey (creates plan if missing)
   const addActivity = useCallback(
     (activity: Activity, dateStr: string, time: string) => {
+    // (activity: Activity, dateStr: string, time: string, selectedVibe: string) => {
       // dateStr expected in YYYY-MM-DD
       const existingPlan = getWeekendPlan(weekStartKey)
       const scheduledId = `scheduled-${Date.now()}`
@@ -81,7 +82,7 @@ export function useWeekendPlanner(date: Date) {
           activities: [scheduledActivity],
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
-          vibe: "balanced"  // default vibe
+          vibe:"balanced",
         }
       }
 
