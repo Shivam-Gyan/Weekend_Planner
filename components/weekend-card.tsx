@@ -24,6 +24,8 @@ export function WeekendCard({ weekend, plan, onSelectWeekend, isSelected = false
       ? formatDateRange(weekend[0], weekend[1])
       : weekend[0].toLocaleDateString("en-US", { month: "short", day: "numeric" })
 
+  console.log(weekend)
+  console.log("Rendering WeekendCard for", plan?.activities.length)
   const activitiesCount = plan?.activities.length || 0
 
   const getActivitiesForDay = (date: Date) => {

@@ -14,7 +14,7 @@ export interface WeekendPlan {
   activities: ScheduledActivity[]
   createdAt: string
   updatedAt: string
-  // vibe: string // e.g., "relaxed", "adventurous", "balanced"
+  vibe: string // e.g., "relaxed", "adventurous", "balanced"
 }
 
 const STORAGE_KEY = "weekendly-plans"
@@ -74,6 +74,7 @@ export function saveWeekendPlan(plan: WeekendPlan): void {
 
 export function getWeekendPlan(weekStart: string): WeekendPlan | null {
   const plans = getWeekendPlans()
+  console.log("getWeekendPlan for weekStart", weekStart, "found plans:", plans)
   return plans.find((p) => p.weekStart === weekStart) || null
 }
 

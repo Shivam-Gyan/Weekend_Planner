@@ -19,6 +19,7 @@ import {
   getNextMonth,
   getWeekendStartDate,
   getWeekStartFromWeekend,
+  getWeekendWeekStartString,
 } from "@/lib/date-utils"
 import { ActivityBrowser } from "@/components/activity-browser"
 import { WeekendCard } from "@/components/weekend-card"
@@ -110,9 +111,18 @@ export default function AllWeekendsPage() {
   )
 
   // get plan for a specific weekend from allPlans (overview)
+  // const getPlanForWeekend = useCallback(
+  //   (weekend: Date[]) => {
+  //     const weekStart = getWeekStartFromWeekend(weekend[0]) // returns a monday-key string
+  //     return allPlans.find((p) => p.weekStart === weekStart)
+  //   },
+  //   [allPlans]
+  // )
+
+
   const getPlanForWeekend = useCallback(
     (weekend: Date[]) => {
-      const weekStart = getWeekStartFromWeekend(weekend[0]) // returns a monday-key string
+      const weekStart = getWeekendWeekStartString(weekend[0]) // returns the Saturday string
       return allPlans.find((p) => p.weekStart === weekStart)
     },
     [allPlans]
@@ -167,7 +177,7 @@ export default function AllWeekendsPage() {
                   >
                     {/* Back button at top */}
                     <div className="flex justify-between items-center mb-4">
-                        <button
+                      <button
                         onClick={handleBackToOverview}
                         className="px-4 py-2 rounded-lg bg-gray-100 text-slate-700 hover:bg-gray-300 transition"
                       >
@@ -213,6 +223,8 @@ export default function AllWeekendsPage() {
                         {monthWeekends.map((weekend, index) => {
                           const weekendKey = weekend.map((d) => d.toISOString()).join("-")
                           const plan = getPlanForWeekend(weekend)
+
+                          console.log("Rendering weekend", weekendKey, "with plan", plan)
 
                           return (
                             <motion.div

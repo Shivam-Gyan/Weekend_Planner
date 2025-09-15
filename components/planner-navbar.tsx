@@ -90,6 +90,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
+import { getWeekendRange } from "@/lib/date-utils"
 import { Calendar, ChevronLeft, ChevronRight, Grid3X3 } from "lucide-react"
 import Link from "next/link"
 
@@ -118,24 +119,7 @@ export function PlannerNavbar({
     year: "numeric",
   }).format(new Date())
 
-  // --- 🟢 Compute current week range ---
-  function getWeekendRange(date: Date) {
-    const day = date.getDay()
-    // Align to Saturday
-    const saturday = new Date(date)
-    saturday.setDate(date.getDate() - ((day + 1) % 7)) // Saturday
-
-    const sunday = new Date(saturday)
-    sunday.setDate(saturday.getDate() + 1) // Sunday
-
-    const format = new Intl.DateTimeFormat("en-US", {
-      day: "numeric",
-      month: "short",
-    })
-
-    return `${format.format(saturday)} - ${format.format(sunday)}`
-  }
-
+  // --- Compute current week range ---
   const weekendRange = getWeekendRange(currentDate)
 
   return (
