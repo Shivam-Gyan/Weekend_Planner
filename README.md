@@ -1,14 +1,15 @@
+
 # Weekendly — Weekend Planner
 
-**A compact, user-friendly app to plan Saturday + Sunday activities.**
-**Owner:** Shivam Gupta
+**A compact, user-friendly app to plan Saturday + Sunday activities.**  
+**Owner:** Shivam Gupta  
 
 ---
 
 ## Demo & repository
 
-* **Live demo:** ` https://monkey-magic.vercel.app/`
-* **Video walkthrough (5–7 min):** `https://drive.google.com/file/d/13SX_tp_hB3ZBKfkigXsSmJVUGgUiJOYe/view?usp=sharing`
+* **Live demo:** [Weekendly App](https://monkey-magic.vercel.app/)  
+* **Video walkthrough (5–7 min):** [Watch on Google Drive](https://drive.google.com/file/d/13SX_tp_hB3ZBKfkigXsSmJVUGgUiJOYe/view?usp=sharing)  
 
 ---
 
@@ -26,9 +27,6 @@ Weekendly helps users browse curated activities and build a Saturday+Sunday plan
 * Add activities to Saturday or Sunday
 * Edit and remove scheduled activities
 * Visual weekend board (ordered/timeline view)
-
-**Bonus**
-
 * Drag-and-drop reorder + cross-day moves using `@dnd-kit`
 * Polished animations via `framer-motion`
 * Theming / “vibes” and custom activity creation
@@ -51,8 +49,8 @@ Weekendly helps users browse curated activities and build a Saturday+Sunday plan
 
 ```bash
 # Clone
-git clone https://GITHUB_REPO_URL
-cd <repo-folder>
+git clone https://github.com/Shivam-Gyan/Weekend_Planner
+cd weekend-planner
 
 # Install
 npm install
@@ -63,9 +61,7 @@ npm run dev   # open http://localhost:3000
 # Build / start (production)
 npm run build
 npm run start
-```
-
-No environment variables required for local development.
+````
 
 ---
 
@@ -87,21 +83,40 @@ type ScheduledActivity = { id: string; activityId: string; date: string; time?: 
 type WeekendPlan = { id: string; weekStartISO: string; scheduled: ScheduledActivity[]; theme?: string }
 ```
 
----
-
-## Architecture & state
-
-* Centralized `ScheduleContext` using `useReducer` to handle `ADD / EDIT / REMOVE / REORDER`.
-* Persistence via `localStorage` on reducer updates; hydration at startup.
-* Componentized UI for testability and reuse; memoization (`React.memo`, `useMemo`) for performance.
-
----
 
 ## Accessibility & UX
 
 * Mobile-first responsive layout
 * Keyboard-operable controls and modals; ARIA attributes on interactive elements
 * Clear motion affordances for drag/drop and list updates
+
+---
+
+## Screenshots
+
+Below are some previews of Weekendly in action:
+
+### 🏠 Landing Page
+
+![Landing Page](https://drive.google.com/uc?export=view&id=1iMmYYWx2MBezYLukDk8IgKElPKqESr7d
+)
+
+### 📊 Dashboard
+
+![Dashboard](https://drive.google.com/uc?export=view&id=1mqocaud7SJl5cke9iutVFP7C9_f3vYVP
+)
+
+### 📅 All Weekend Plans
+
+![All Weekends](https://drive.google.com/uc?export=view&id=1N_9QeARsisVu9CzmSky1ZVEB3qCfuk2H
+)
+
+### 📖 Weekend Details
+
+![Weekend Details](https://drive.google.com/uc?export=view&id=17lxdOH60xkM_lhrb6NY9GI_iZPBdVVCq
+)
+
+*(Place your actual screenshots in a `screenshots/` folder in the repo and update file names accordingly.)*
 
 ---
 
@@ -112,25 +127,4 @@ type WeekendPlan = { id: string; weekStartISO: string; scheduled: ScheduledActiv
 * Virtualize lists for scaling beyond \~100 items.
 
 ---
-
-## Deployment
-
-* Deploy to Vercel: connect repo → set build command `npm run build` → deploy.
-* Ensure `LIVE_DEMO_URL` is updated in this README after deployment.
-
----
-
-## Deliverables included
-
-* Live demo link
-* GitHub repo with source code
-* Video walkthrough (5–7 minutes)
-* This README / project documentation
-
----
-
-## Contact
-
-**Shivam Gupta** — include email or phone here if you want to share publicly.
-
 
