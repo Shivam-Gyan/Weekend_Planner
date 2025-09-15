@@ -67,8 +67,8 @@ export default function PlannerPage() {
       const { date, time } = dropData
       console.log("Dropping activity", activity, "on", date, time)
 
-      const success = addActivity(activity, date, time)
-      // const success = addActivity(activity, date, time,selectedVibe)
+      // const success = addActivity(activity, date, time)
+      const success = addActivity(activity, date, time,selectedVibe)
       if (success) {
         toast.success(`${activity.title} added to your schedule!`)
       } else {
@@ -90,42 +90,50 @@ export default function PlannerPage() {
   //   link.click()
   // }
 
-  function formatActivityTime(a: any, weekStart: string): string {
-    const sat = new Date(weekStart)
-    const sun = new Date(weekStart)
-    sun.setDate(sun.getDate() + 1)
+function formatActivityDetails(a: any, weekStart: string): string {
+  const sat = new Date(weekStart)
+  const sun = new Date(weekStart)
+  sun.setDate(sun.getDate() + 1)
 
-    const activityDate = new Date(a.date)
+  const activityDate = new Date(a.date)
+  let dayLabel = ""
 
-    if (activityDate.toDateString() === sat.toDateString()) {
-      return `Sat @ ${a.time}`
-    }
-    if (activityDate.toDateString() === sun.toDateString()) {
-      return `Sun @ ${a.time}`
-    }
-
-    // fallback if somehow activity is outside this weekend
-    return `${a.date} @ ${a.time}`
+  if (activityDate.toDateString() === sat.toDateString()) {
+    dayLabel = "Saturday"
+  } else if (activityDate.toDateString() === sun.toDateString()) {
+    dayLabel = "Sunday"
+  } else {
+    dayLabel = a.date
   }
 
-  const handleWebShare = () => {
-    if (!weekendPlan) return
-    const text =
-      `📅 ${weekendPlan.title}\n\n` +
-      weekendPlan.activities
-        .map((a: any) => `${a.icon} ${a.title} (${formatActivityTime(a, weekendPlan.weekStart)})`)
-        .join("\n")
+  return (
+    `${a.icon} ${a.title}\n` +
+    `• Vibe: ${a.vibe?.join(", ") || "—"}\n` +
+    `• Time: ${dayLabel} @ ${a.time}\n` +
+    `• Duration: ${a.duration ? `${a.duration} mins` : "—"}\n` +
+    `• Description: ${a.description || "No details provided"}`
+  )
+}
 
+const handleWebShare = () => {
+  if (!weekendPlan) return
 
-    if (navigator.share) {
-      navigator.share({
-        title: weekendPlan.title,
-        text,
-      })
-    } else {
-      toast.info("Sharing not supported in this browser")
-    }
+  const text =
+    `📅 ${weekendPlan.title}\n\n` +
+    weekendPlan.activities
+      .map((a: any) => formatActivityDetails(a, weekendPlan.weekStart))
+      .join("\n\n") // blank line between activities for readability
+
+  if (navigator.share) {
+    navigator.share({
+      title: weekendPlan.title,
+      text,
+    })
+  } else {
+    toast.info("Sharing not supported in this browser")
   }
+}
+
 
   // ---- LOADING ----
   if (isLoading) {

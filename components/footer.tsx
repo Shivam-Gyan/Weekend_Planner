@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Calendar, Heart, Github, Twitter } from "lucide-react"
+import { Calendar, Heart, Github, Twitter, Linkedin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 
@@ -66,7 +66,7 @@ export function Footer() {
                 <Github className="h-4 w-4" />
               </Button>
               <Button variant="outline" size="icon">
-                <Twitter className="h-4 w-4" />
+                <Linkedin className="h-4 w-4" />
               </Button>
             </div>
           </div>
